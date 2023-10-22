@@ -43,7 +43,7 @@
                             @endforeach
                         </ul>
                     <li class="nav__item">
-                        <a href="#products" class="nav__link">Our Product</a>
+                        <a href="/products" class="nav__link">Our Product</a>
                     </li>
                     <li class="nav__item">
                         <a href="#new" class="nav__link">Contact</a>
@@ -155,8 +155,6 @@
         </div>
 
         <div class="cart__prices">
-            {{-- <span class="cart__prices-item">3 items</span>
-            <span class="cart__prices-total">Rp.375.000,00</span> --}}
             <a href="/checkout">detail</a>
         </div>
     </div>

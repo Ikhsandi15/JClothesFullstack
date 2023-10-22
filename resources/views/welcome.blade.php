@@ -70,7 +70,7 @@
                             <li><a href="#">Varsity</a></li>
                         </ul>
                     <li class="nav__item">
-                        <a href="#products" class="nav__link">Our Product</a>
+                        <a href="/products" class="nav__link">Our Product</a>
                     </li>
                     <li class="nav__item">
                         <a href="#new" class="nav__link">Contact</a>
