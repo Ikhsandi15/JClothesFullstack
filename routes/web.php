@@ -45,6 +45,11 @@ Route::get('/design', function(){
 })->middleware('auth');
 Route::get('/design/{nama}', [DesignCategoryController::class, 'index'])->middleware('auth');
 
+// page product
+Route::get('/products', function(){
+    return view('product.index');
+})->middleware('auth');
+
 // authentication
 Route::get('/email/verify', function () {
     return view('auth.verify');
