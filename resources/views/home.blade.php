@@ -111,10 +111,7 @@
 
         <div class="cart__container">
             <?php
-            $pesanan = App\Models\Pesanan::where('user_id', Auth::user()->id)
-                ->where('status', 0)
-                ->first();
-            if (!empty($pesanan)) {
+            if (!empty($pesanan_utama)) {
                 $pesanan_details = App\Models\PesananDetail::where('pesanan_id', $pesanan->id)->get();
             }
             ?>
