@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PesananController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('v1')->group(function () {
+    Route::get('pesan/{id}', [PesananController::class, 'index']);
+    Route::post('pesan/{id}', [PesananController::class, 'store']);
+    Route::get('/checkout', [PesananController::class, 'checkout']);
+    Route::delete('/checkout/{id}', [PesananController::class, 'delete']);
+    Route::get('/confirm-checkout', [PesananController::class, 'confirm']);
 });

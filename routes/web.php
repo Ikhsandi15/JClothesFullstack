@@ -1,11 +1,14 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\HomeController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
@@ -18,13 +21,28 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Auth::routes();
@@ -39,14 +57,14 @@ Route::get('/confirm-checkout', [PesananController::class, 'confirm']);
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/profile', [ProfileController::class, 'update']);
 
-Route::get('/design', function(){
+Route::get('/design', function () {
     $data = DB::table('design_categories')->get();
-    return view('design.index',['data'=>$data]);
+    return view('design.index', ['data' => $data]);
 })->middleware('auth');
 Route::get('/design/{nama}', [DesignCategoryController::class, 'index'])->middleware('auth');
 
 // page product
-Route::get('/products', function(){
+Route::get('/products', function () {
     return view('product.index');
 })->middleware('auth');
 
@@ -57,13 +75,13 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
- 
+
     return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
- 
+
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
@@ -73,7 +91,7 @@ Route::get('/auth/github/redirect', function () {
 });
 Route::get('/auth/github/callback', function () {
     $githubUser = Socialite::driver('github')->user();
- 
+
     $user = User::updateOrCreate([
         'github_id' => $githubUser->id,
     ], [
@@ -83,11 +101,11 @@ Route::get('/auth/github/callback', function () {
         'github_token' => $githubUser->token,
         'github_refresh_token' => $githubUser->refreshToken,
     ]);
- 
+
     Auth::login($user);
 
     $user->sendEmailVerificationNotification();
- 
+
     return redirect('/home');
 });
 
@@ -98,7 +116,7 @@ Route::get('/auth/google/redirect', function () {
 
 Route::get('/auth/google/callback', function () {
     $googleUser = Socialite::driver('google')->user();
- 
+
     $user = User::updateOrCreate([
         'google_id' => $googleUser->id,
     ], [
@@ -110,8 +128,10 @@ Route::get('/auth/google/callback', function () {
     ]);
 
     Auth::login($user);
- 
+
     $user->sendEmailVerificationNotification();
 
     return redirect('/home');
 });
+
+// require __DIR__ . '/auth.php';
