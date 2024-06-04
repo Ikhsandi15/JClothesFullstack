@@ -10,15 +10,10 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('barangs', function (Blueprint $table) {
+        Schema::create('category', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
-            $table->integer('harga');
-            $table->unsignedBigInteger('category_id');
-            $table->integer('stok');
-            $table->string('keterangan');
+            $table->string('name');
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('category')->onDelete('restrict');
         });
     }
 
@@ -27,6 +22,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('barangs');
+        Schema::dropIfExists('category');
     }
 };
