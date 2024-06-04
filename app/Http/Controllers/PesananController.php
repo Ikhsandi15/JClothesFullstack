@@ -15,7 +15,7 @@ class PesananController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth:sanctum', 'verified']);
     }
     /**
      * Display a listing of the resource.
@@ -44,10 +44,10 @@ class PesananController extends Controller
         ]);
 
         $barang = Barang::where('id', $id)->first();
-        
+
         // cek validasi: jika pesanan yang berstatus 0 di user itu sudah ada, maka tidak usah buat <INI> langsung ke <SINI>
         $cek_pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
-        // simpan ke DB Pesanan <INI>   
+        // simpan ke DB Pesanan <INI>
         if(empty($cek_pesanan)) {
             $pesanan = new Pesanan;
             $pesanan->user_id = Auth::user()->id;
@@ -58,7 +58,7 @@ class PesananController extends Controller
         }
 
         // simpan ke DB PesananDetail <SINI>
-        // ambil id pesanan yang sudah tersimpan diatas 
+        // ambil id pesanan yang sudah tersimpan diatas
         $pesanan_baru = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
         // cek pesanan detail
@@ -123,7 +123,7 @@ class PesananController extends Controller
         //
     }
 
-    public function checkout() 
+    public function checkout()
     {
         $pesanan = Pesanan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $pesanan_details = null;
@@ -134,7 +134,7 @@ class PesananController extends Controller
         return view('pesan.checkout', ['pesanan'=>$pesanan, 'pesanan_details'=>$pesanan_details]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $pesanan_detail = PesananDetail::where('id', $id)->first();
 
@@ -151,7 +151,7 @@ class PesananController extends Controller
         return redirect('/checkout');
     }
 
-    public function confirm() 
+    public function confirm()
     {
         $user = User::where('id', Auth::user()->id)->first();
 
