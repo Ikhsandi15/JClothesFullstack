@@ -27,5 +27,12 @@ Route::prefix('v1')->group(function () {
     Route::delete('/checkout/{id}', [PesananController::class, 'delete']);
     Route::get('/confirm-checkout', [PesananController::class, 'confirm']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::post('/admin/login', [App\Http\Controllers\AdminController::class, 'login']);
+    Route::get('/barang', [App\Http\Controllers\BarangController::class, 'showByCategory']);
+
+    Route::prefix('/admin')->group(function () {
+        Route::post('/login', [App\Http\Controllers\AdminController::class, 'login']);
+        Route::post('/barang', [App\Http\Controllers\BarangController::class, 'store'])->middleware('auth:sanctum');
+        Route::put('/barang/{id}', [App\Http\Controllers\BarangController::class, 'update'])->middleware('auth:sanctum');
+        Route::delete('/barang/{id}', [App\Http\Controllers\BarangController::class, 'destroy'])->middleware('auth:sanctum');
+    });
 });
