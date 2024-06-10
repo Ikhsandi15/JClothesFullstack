@@ -79,6 +79,24 @@ class BarangController extends Controller
             'data' => $barang
         ]);
     }
+    public function showById(Request $req, $id)
+    {
+        $data = Barang::with('category')->find($id);
+
+        if ($data) {
+            $data->category_name = $data->category->name;
+
+            return response()->json([
+                'message' => 'Success',
+                'data' => $data
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Data not found',
+                'data' => null
+            ], 404);
+        }
+    }
 
     /**
      * Update the specified resource in storage.
