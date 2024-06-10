@@ -3,28 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function Pest\Laravel\json;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
-    /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return JsonResponse
      */
     public function index()
     {
-        $barangs = Barang::paginate(20);
-        return view('home', ['barangs' => $barangs]);
+        return response()->json([
+            'message' => 'Success',
+            'barang1' => Barang::where('id', '<', 5)->get(),
+            'barang2' => Barang::where('id', '>=', 5)->get(),
+        ]);
+    }
+    public function allData() {
+        $data = Barang::with('category')->get()->map(function ($item) {
+            $item->category_name = $item->category->name;
+            unset($item->category_id, $item->category); // Menghapus category_id dan category
+            return $item;
+        });
+
+        return response()->json([
+            'message' => 'Success',
+            'data' => $data
+        ]);
     }
 }
