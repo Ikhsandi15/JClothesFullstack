@@ -16,41 +16,69 @@ class BarangSeeder extends Seeder
     {
         Barang::insert([
             [
-                'nama_barang' => 'Satoru',
-                'gambar' => 'satoru.png',
-                'harga' => 50000,
-                'stok' => 5,
-                'keterangan' => 'design gojo satoru'
+                'nama_barang' => 'T-Shirt',
+                'gambar' => 'p-1.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 1
             ],
             [
-                'nama_barang' => 'Gojo Design',
-                'gambar' => 'hoodieGojo.png',
-                'harga' => 150000,
-                'stok' => 2,
-                'keterangan' => 'design gojo satoru'
+                'nama_barang' => 'Hoodie',
+                'gambar' => 'p-2.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 2
             ],
             [
-                'nama_barang' => 'Varsity Custom',
-                'gambar' => 'varsity.png',
-                'harga' => 450000,
-                'stok' => 1,
-                'keterangan' => 'design varsity custom'
+                'nama_barang' => 'Mugs',
+                'gambar' => 'p-3.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 3
             ],
             [
-                'nama_barang' => 'Moon T-Shirt',
-                'gambar' => 'MOON1.png',
-                'harga' => 55000,
-                'stok' => 3,
-                'keterangan' => 'design moon'
+                'nama_barang' => 'Sweater',
+                'gambar' => 'P-4.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 4
             ],
             [
-                'nama_barang' => 'Ghost Ride Hoodie',
-                'gambar' => 'ghostrideHoodie.png',
-                'harga' => 150000,
-                'stok' => 2,
-                'keterangan' => 'design Ghost Ride'
+                'nama_barang' => 'Totebag',
+                'gambar' => 'p-5.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 5
             ],
-
+            [
+                'nama_barang' => 'Jacket',
+                'gambar' => 'p-6.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 6
+            ],
+            [
+                'nama_barang' => 'Long Sleeves',
+                'gambar' => 'p-8.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 7
+            ],
+            [
+                'nama_barang' => 'PDL Customs',
+                'gambar' => 'p-9.png',
+                'harga' => 0,
+                'stok' => 0,
+                'keterangan' => 'Lets Discuss',
+                'category_id' => 8
+            ],
         ]);
     }
 }
