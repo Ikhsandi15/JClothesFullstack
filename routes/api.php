@@ -28,9 +28,12 @@ Route::prefix('v1')->group(function () {
     Route::get('/confirm-checkout', [PesananController::class, 'confirm']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/barang', [App\Http\Controllers\BarangController::class, 'showByCategory']);
+    Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index']);
 
     Route::prefix('/admin')->group(function () {
         Route::post('/login', [App\Http\Controllers\AdminController::class, 'login']);
+        Route::get('/barang', [App\Http\Controllers\HomeController::class, 'allData']);
+        Route::get('/barang/{id}', [App\Http\Controllers\BarangController::class, 'showById']);
         Route::post('/barang', [App\Http\Controllers\BarangController::class, 'store'])->middleware('auth:sanctum');
         Route::put('/barang/{id}', [App\Http\Controllers\BarangController::class, 'update'])->middleware('auth:sanctum');
         Route::delete('/barang/{id}', [App\Http\Controllers\BarangController::class, 'destroy'])->middleware('auth:sanctum');
