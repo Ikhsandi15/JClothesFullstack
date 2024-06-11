@@ -108,8 +108,7 @@ class BarangController extends Controller
             'harga' => 'required|numeric',
             'stok' => 'required|numeric',
             'keterangan' => 'required',
-            'category_id' => 'required',
-            'gambar' => 'nullable|file|image|max:2048'
+            'category_id' => 'required'
         ]);
 
         if ($validator->fails()) {
