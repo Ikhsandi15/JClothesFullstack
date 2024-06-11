@@ -35,7 +35,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/barang', [App\Http\Controllers\HomeController::class, 'allData']);
         Route::get('/barang/{id}', [App\Http\Controllers\BarangController::class, 'showById']);
         Route::post('/barang', [App\Http\Controllers\BarangController::class, 'store'])->middleware('auth:sanctum');
-        Route::put('/barang/{id}', [App\Http\Controllers\BarangController::class, 'update'])->middleware('auth:sanctum');
+        Route::post('/barang/{id}', [App\Http\Controllers\BarangController::class, 'update'])->middleware('auth:sanctum');
         Route::delete('/barang/{id}', [App\Http\Controllers\BarangController::class, 'destroy'])->middleware('auth:sanctum');
     });
 });
