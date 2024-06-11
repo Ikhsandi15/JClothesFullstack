@@ -45,7 +45,7 @@ class BarangController extends Controller
 
         $gambar = $request->file('gambar');
         $namaGambar = time() . '.' . $gambar->getClientOriginalExtension();
-        $gambar->storeAs('public/images/' . $namaGambar);
+        $gambar->storeAs('public/assets/img/product/' . $namaGambar);
 
         $input = $request->all();
         $input['gambar'] = $namaGambar;
