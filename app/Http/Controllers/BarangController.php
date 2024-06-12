@@ -105,8 +105,8 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_barang' => 'required',
-            'harga' => 'required',
-            'stok' => 'required',
+            'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
             'keterangan' => 'required',
             'category_id' => 'required'
         ]);
@@ -126,14 +126,17 @@ class BarangController extends Controller
 
         if ($barang) {
             if ($request->hasFile('gambar')) {
+                if (Storage::delete('public/assets/img/product/' . $barang->gambar)) {
+                }
+
                 $gambar = $request->file('gambar');
                 $namaGambar = time() . '.' . $gambar->getClientOriginalExtension();
-                $gambar->storeAs('public/images/' . $namaGambar);
+                $gambar->storeAs('public/assets/img/product/' . $namaGambar);
 
                 $input = $request->all();
                 $input['gambar'] = $namaGambar;
 
-                $barang = Barang::create($input);
+                $barang->update($input);
 
                 return response()->json([
                     'meta' => [
